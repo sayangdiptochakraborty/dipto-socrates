@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sign Up</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-12 col-sm-8 col-md-6 col-lg-4 offset-sm-2 offset-md-3 offset-lg-4"
+          >
+            <h1 class="mb-3 text-center">Sign Up</h1>
+            <p class="lead text-center">
+             Or <a href="login.html">Login</a>
+            </p>
+              <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                  <label for="firstName">First name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="First name"
+                    id="firstName" required
+                  />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                  <label for="lastName">Last name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Last name"
+                    id="lastName" required
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <label for="email">Email:</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="h21000@astra.xlri.ac.in"
+                      id="email"
+                      required
+                    />
+                </div>
+                <div class="form-group col-12 col-sm-6">
+                    <label for="roll">Roll No:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="BJ21XXX"
+                      id="roll"
+                    />
+                  </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-12 col-sm-6">
+                    <label for="password">Password:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="*******"
+                      required
+                    />
+                  </div>
+                  <div class='form-group col-12 col-sm-6'>
+                    <label for="dob">Date of Birth:</label>
+                    <div class="input-group" id='datetimepicker3'>
+                        <input type="date" class="form-control" id="dob" required/>
+                    </div>
+                </div>
+              </div>
+              <button onclick="myFunc()" class="btn btn-primary btn-block mb-3">
+                Create account
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        if(sessionStorage.getItem('data')!=undefined)
+        {
+            window.location.href=window.location.href.split('/').slice(0,-1).join('/')+'/profile.html';
+        }
+        function myFunc()
+        {
+            var fname = document.getElementById('firstName').value.trim();
+            var lname = document.getElementById('lastName').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var roll = document.getElementById('roll').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var dob = document.getElementById('dob').value.trim();
+            if(fname!=''&&lname!=''&&email!=''&&roll!=""&&password!=""&&dob!="")
+            {
+              var data = {'fname':fname,'lname': lname,'email':email,'roll':roll,'password':password,'dob':dob};
+              $.ajax({
+                type: "POST",
+                url: "/signup",
+                data: data,
+                async: true,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (response, status, xhr) {
+                  sessionStorage.setItem('data',JSON.stringify(response));
+                  window.location.href=window.location.href.split('/').slice(0,-1).join('/')+'/profile.html';
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                  alert("User Not Found!");
+                }
+              });
+            }
+        }
+    </script>
+  </body>
+</html>
