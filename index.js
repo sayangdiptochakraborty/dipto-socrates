@@ -15,7 +15,8 @@ app.use(express.json());
 app.use(bodyparser.urlencoded({parameterLimit: 100000,limit: '50mb',extended: true}));
 app.use(bodyparser.json());
 app.use(cors());
-app.listen(3000, () => console.log('Server running on port 3000!'));
+var port = process.env.PORT || 3000;
+app.listen(port, () => console.log('Server running on port 3000!'));
 app.use('/frontend', express.static(path.join(__dirname, 'frontend')))
 app.use('/login',login);
 app.use('/signup',signup);
