@@ -17,6 +17,6 @@ app.use(bodyparser.json());
 app.use(cors());
 var port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Server running on port 3000!'));
-app.use('/frontend', express.static(path.join(__dirname, 'frontend')))
+app.use(express.static('frontend'));
 app.use('/login',login);
 app.use('/signup',signup);
