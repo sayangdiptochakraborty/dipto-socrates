@@ -3,6 +3,7 @@ const {User} = require('../models/user');
 var router = express.Router();
 
 router.post('/',async (req,res)=>{
+    /* Create a new User Entry*/
     let user = new User({
         "fname": req.body.fname,
         "lname": req.body.lname,

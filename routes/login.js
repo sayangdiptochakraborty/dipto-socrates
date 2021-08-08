@@ -4,6 +4,7 @@ const {User} = require('../models/user');
 var router = express.Router();
 
 router.post('/',async (req,res)=>{
+    /* Find a user entry from User Collection */
     User.findOne({
         "email":req.body.email,
         "password": req.body.password
